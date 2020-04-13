@@ -16,3 +16,5 @@ This is simple php framework for building basic sites.
    - Add extension .pages.php to all content pages
 
 4. Enable side nav use for each view within view
+
+## Happy building!
