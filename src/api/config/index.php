@@ -4,7 +4,14 @@
 // Project Variables
 ///////////////////////////////
 
-$table = []; // Enter db table name in array
+/**
+ * DB Table
+ * Enter table names as array for easy changes
+ * 
+ * 0 - table
+ * 1 - table2
+ */
+$table = [];
 $dbData = include('db.php');
 $siteURL =  $_SERVER['HTTP_HOST'];
 
