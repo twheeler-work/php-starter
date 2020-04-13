@@ -1,0 +1,7 @@
+{
+    "require": {
+        "thingengineer/mysqli-database-class": "dev-master",
+        "phpmailer/phpmailer": "^6.0",
+        "aws/aws-sdk-php": "^3.112"
+    }
+}
