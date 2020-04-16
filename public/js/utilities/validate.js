@@ -1,7 +1,7 @@
 // Title: Form Validation
 // Desc: Handles validation for form data
 // Author: Tommy Wheeler
-// Version: 1.4
+// Version: 1.5
 // Created: 8/16/19
 
 /**
@@ -174,14 +174,14 @@ function formValidate(formID = false) {
 
   //  Validate all data-required fields
   try {
-    var validate = function(fields) {
+    var validate = function (fields) {
       let valid = {
           empty: true,
           email: true,
           phone: true,
           radio: true,
           box: true,
-          sign: true
+          sign: true,
         },
         focus = [];
 
@@ -215,7 +215,7 @@ function formValidate(formID = false) {
       var obj = validate(fields);
       if (
         Object.keys(obj)
-          .map(function(e) {
+          .map(function (e) {
             return obj[e];
           })
           .indexOf(false) < 0
