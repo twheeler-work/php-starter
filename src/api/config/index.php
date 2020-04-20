@@ -6,9 +6,11 @@
 
 /**
  * DB Table
+ * @var \Array
  * Enter table names as array for easy changes
  * 
- * 0 - table
+ * 0 - table1
+ * 
  * 1 - table2
  */
 $table = [];
