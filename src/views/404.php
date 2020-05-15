@@ -1,3 +1,10 @@
+<?php
+// Set return / back link
+isset($_SERVER['HTTP_REFERER'])
+    ? $nav = [$_SERVER['HTTP_REFERER'], "Go back"]
+    : $nav = ["/", "Return home"];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,6 +22,7 @@
             <h1 class="display-1">404</h1>
             <h2 class="display-2">Woops!</h2>
             <h3 class="lead">Page not found.</h3>
+            <h4><a href="<?= $nav[0] ?>"><?= $nav[1] ?></a></h4>
         </div>
     </div>
 </body>
