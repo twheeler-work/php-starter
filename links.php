@@ -1,6 +1,6 @@
 <?php
 // Get current page depth
-$root = Router::trimURI($uri);
+$root = $_SERVER["DOCUMENT_ROOT"];
 
 return [
     // Root Links -----------
@@ -8,18 +8,18 @@ return [
         'css' => '/public/css/',
         'img' => '/public/images/',
         'js' => '/public/js/',
-        'components' => './src/views/components' . $root . '/',
-        'common' => './src/views/components' . $root . '/common/',
-        'pages' => './src/views' . $root . '/pages/',
-        'api' => './src/api/',
-        'vendors' => './src/vendors/',
+        'components' => $root . '/src/views/components/',
+        'common' => $root . '/src/views/components/common/',
+        'pages' => $root . '/src/views/pages/',
+        'api' => $root . '/src/api/',
+        'vendors' => $root . '/src/vendors/',
     ],
     'COMPONENTS' => [
-        'header' => './src/views/components/header.php',
-        'footer' => './src/views/components' . $root . '/footer.php',
-        'nav' => './src/views/components' . $root . '/nav.php',
-        'main' => './src/views/components' . $root . '/main.php',
-        'sidenav' => './src/views/components' . $root . '/sidenav.php',
-        'scripts' => './src/views/components/scripts.php'
+        'header' => $root . '/src/views/components/header.php',
+        'footer' => $root . '/src/views/components/footer.php',
+        'nav' => $root . '/src/views/components/nav.php',
+        'main' => $root . '/src/views/components/main.php',
+        'sidenav' => $root . '/src/views/components/sidenav.php',
+        'scripts' => $root . '/src/views/components/scripts.php'
     ]
 ];
