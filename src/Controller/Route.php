@@ -5,6 +5,8 @@ class Router
     private $request;
     private $pages;
 
+    public $views;
+
     public function __construct($request, $pages)
     {
         $this->request = $request;
@@ -39,9 +41,9 @@ class Router
 
         // Check if site exist
         if (in_array($uri[0], $this->pages)) {
-            return '/src/views/' . $uri[0] . '.php';
+            return '/' . $this->views . $uri[0] . '.php';
         } else {
-            return '/src/views/404.php';
+            return '/' . $this->views . '404.php';
         }
     }
 

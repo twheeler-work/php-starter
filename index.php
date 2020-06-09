@@ -1,5 +1,6 @@
 <?php
 require_once("./src/Controller/Route.php");
+require_once("./src/Entities/Browser.php");
 
 //  Get and clean current URI
 $uri = urldecode(
@@ -23,4 +24,5 @@ $isIE = Browser::isIE();
     - 404.php
  */
 $router = new Router($uri, Router::getPages($site['VIEWS']));
+$router->views = $site['VIEWS'];
 require __DIR__ . $router->redirect();
