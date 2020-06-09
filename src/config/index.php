@@ -77,6 +77,18 @@ if (!$local) {
 require_once(__DIR__ . '/../../../vendor/autoload.php');
 
 ///////////////////////////////
+// Class Libraries 
+// - No need to link classes
+///////////////////////////////
+
+spl_autoload_register('autoloader');
+
+function autoloader($classname)
+{
+    include_once __DIR__ . "/../Entities/" . $classname . '.php';
+}
+
+///////////////////////////////
 // Connect DB
 ///////////////////////////////
 
