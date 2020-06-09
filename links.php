@@ -11,8 +11,6 @@ return [
         'components' => $root . '/' . $site['VIEWS'] . '/components/',
         'common' => $root . '/' . $site['VIEWS'] . '/components/common/',
         'pages' => $root . '/' . $site['VIEWS'] . '/pages/',
-        'api' => $root . '/src/api/',
-        'vendors' => $root . '/src/vendors/',
     ],
     'COMPONENTS' => [
         'header' => $root . '/' . $site['VIEWS'] . '/components/header.php',
