@@ -45,10 +45,7 @@ Store all public accessible content here.
 
 ## SRC
 
-All private content is stored here.
-
-- API
-  Backend code directory
+All backend content is stored here.
 
 - Config
 
@@ -56,19 +53,22 @@ All private content is stored here.
   - Store all sensitive data here
   - Includes database connection file
 
+- Controllers
+  Route controllers are stored here
+
+  - Route (project router)
+
 - Models
   Project class modules are stored here
 
-  - Email
-  - Route (project router)
-  - Update
-  - Update entries on call
+  - Browser
+  - Export
 
-- Views
+## Templates
 
-Rendered content is stored here.
+All view content is stored here.
 
-All valid routes are established in this folder (EXCEPT for components & pages).
+\*All valid routes are established in this folder (EXCEPT for components & pages).
 
 - Components
   Main site components are stored here.
