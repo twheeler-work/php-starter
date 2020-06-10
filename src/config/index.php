@@ -85,7 +85,7 @@ spl_autoload_register('autoloader');
 
 function autoloader($classname)
 {
-    include_once __DIR__ . "/../Entities/" . $classname . '.php';
+    include_once __DIR__ . "/../Models/" . $classname . '.php';
 }
 
 ///////////////////////////////
