@@ -166,6 +166,8 @@ class Router
         if (isset($_SESSION['uri'])) {
             $uri = $_SESSION['uri'];
             echo $uri;
+        } else {
+            echo "/";
         }
     }
 }
