@@ -1,6 +1,5 @@
 <?php
 require_once("./src/Controller/Route.php");
-require_once("./src/Entities/Browser.php");
 
 //  Get and clean current URI
 $uri = urldecode(

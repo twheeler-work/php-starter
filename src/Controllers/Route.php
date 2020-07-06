@@ -13,6 +13,14 @@ class Router
         $this->pages = $pages;
     }
 
+    /**
+     * Redirect URI
+     * -----------------------------
+     * Capture & clean URI to filter 
+     *  through accepted pages.
+     * 
+     * @return string url
+     */
     public function redirect()
     {
         // Get url var
@@ -47,6 +55,16 @@ class Router
         }
     }
 
+    /**
+     * Filter Pages
+     * -----------------------------
+     * Look through folders in 
+     *  received path & build array 
+     *  of pages to return.
+     * 
+     * @param string path to page directory
+     * @return string url
+     */
     static function getPages($root)
     {
         $pages = array();
@@ -87,6 +105,16 @@ class Router
         return $pages;
     }
 
+    /**
+     * Format URI
+     * -----------------------------
+     * Return clean uri as path OR
+     *  as page name.
+     * 
+     * @param string $uri
+     * @param boolean $returnName
+     * @return string uri or name
+     */
     static function trimURI($uri, $returnName = false)
     {
         $page = explode("/", $uri);
@@ -102,5 +130,42 @@ class Router
         }
 
         return $root = rtrim($root, "/");
+    }
+
+    /**
+     * Redirect to login
+     * -----------------------------
+     * If loggedIn session is false
+     *  set intended URI as session
+     *  & redirect to login page.
+     * 
+     * @return header login
+     */
+    public static function secure()
+    {
+        if (!$_SESSION['loggedIn']) {
+
+            //  Get and clean current URI
+            $_SESSION['uri'] = urldecode(
+                parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
+            );
+            header("Location: login");
+        }
+    }
+
+    /**
+     * Continue to intended url
+     * -----------------------------
+     * Capture URI session if set & 
+     *  continue after login.
+     * 
+     * @return string url
+     */
+    public static function continue()
+    {
+        if (isset($_SESSION['uri'])) {
+            $uri = $_SESSION['uri'];
+            echo $uri;
+        }
     }
 }
