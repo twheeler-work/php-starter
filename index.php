@@ -1,7 +1,6 @@
 <?php
+require_once("./src/Config/index.php");
 require_once("./src/Controllers/Route.php");
-// Run alternate scripts on browser detection
-require_once("./src/Models/Browser.php");
 
 //  Get and clean current URI
 $uri = urldecode(
