@@ -4,34 +4,34 @@ class Router
 {
     private $request;
     private $pages;
+    private $views;
 
-    public $views;
-
-    public function __construct($request, $pages)
+    public function __construct($root)
     {
-        $this->request = $request;
-        $this->pages = $pages;
+        $this->request = urldecode(
+            parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
+        );
+        $this->views = $root;
+        $this->pages = $this->getPages($this->views);
     }
 
-    /**
-     * Redirect URI
+    /** ----------------------------
+     *? Redirect URI
      * -----------------------------
      * Capture & clean URI to filter 
      *  through accepted pages.
      * 
      * @return string url
      */
-    public function redirect()
+    public function route()
     {
         // Get url var
         $uri = trim($this->request, "/");
-        $uri = explode("/", $uri);
+        $uri = explode(".php", $uri);
+        $uri = explode("/", $uri[0]);
 
         // If var empty set to index
         empty($uri[0]) && $uri[0] = 'index';
-
-        // Split query value
-        $query = explode(".php?", $uri[0]);
 
         // Check for deep roots
         if (isset($uri[1])) {
@@ -48,24 +48,24 @@ class Router
         }
 
         // Check if site exist
-        if (in_array($uri[0], $this->pages)) {
+        if (in_array(strtolower($uri[0]), $this->pages)) {
             return '/' . $this->views . $uri[0] . '.php';
         } else {
             return '/' . $this->views . '404.php';
         }
     }
 
-    /**
-     * Filter Pages
+    /** ----------------------------
+     *? Filter Pages
      * -----------------------------
      * Look through folders in 
      *  received path & build array 
      *  of pages to return.
      * 
      * @param string path to page directory
-     * @return string url
+     * @return array pages
      */
-    static function getPages($root)
+    private function getPages($root)
     {
         $pages = array();
         $directories = array();
@@ -105,8 +105,8 @@ class Router
         return $pages;
     }
 
-    /**
-     * Format URI
+    /** ----------------------------
+     *? Format URI
      * -----------------------------
      * Return clean uri as path OR
      *  as page name.
@@ -117,7 +117,8 @@ class Router
      */
     static function trimURI($uri, $returnName = false)
     {
-        $page = explode("/", $uri);
+        $page = explode(".php", $uri);
+        $page = explode("/", $page[0]);
         $pageName = array_pop($page);
         $root = "";
         foreach ($page as $i) {
@@ -132,8 +133,8 @@ class Router
         return $root = rtrim($root, "/");
     }
 
-    /**
-     * Redirect to login
+    /** ----------------------------
+     *? Redirect to login
      * -----------------------------
      * If loggedIn session is false
      *  set intended URI as session
@@ -153,8 +154,8 @@ class Router
         }
     }
 
-    /**
-     * Continue to intended url
+    /** ----------------------------
+     *? Continue to intended url
      * -----------------------------
      * Capture URI session if set & 
      *  continue after login.
