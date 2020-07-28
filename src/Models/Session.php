@@ -2,6 +2,19 @@
 
 class Session
 {
+
+    /** ---------------------------
+     *? Start session
+     * ----------------------------
+     * Create session & start
+     *  timeout counter.
+     */
+    public function start()
+    {
+        session_start();
+        $this->timeout();
+    }
+
     /** ---------------------------
      *? Create session
      * ----------------------------
@@ -97,7 +110,7 @@ class Session
      *   session.
      * @param string $session
      */
-    public function timeout()
+    private function timeout()
     {
         if (
             !empty($this->get('LAST_ACTIVITY'))

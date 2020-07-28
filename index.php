@@ -3,8 +3,6 @@ require_once("./src/Config/index.php");
 require_once("./src/Controllers/Route.php");
 
 $site = include_once('./info.php');
-$links = include_once('./links.php');
-$page = Router::trimURI($uri, true);
 $isIE = Browser::isIE();
 
 /*
@@ -19,4 +17,6 @@ $isIE = Browser::isIE();
     - 404.php
  */
 $router = new Router($site['VIEWS']);
+$page = $router->trimURI(true);
+$links = include_once('./links.php');
 require __DIR__ . $router->route();

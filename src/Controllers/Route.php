@@ -28,7 +28,7 @@ class Router
         // Get url var
         $uri = trim($this->request, "/");
         $uri = explode(".php", $uri);
-        $uri = explode("/", $uri[0]);
+        // $uri = explode("/", $uri[0]);
 
         // If var empty set to index
         empty($uri[0]) && $uri[0] = 'index';
@@ -40,11 +40,6 @@ class Router
                 $uris .= $i . "/";
             }
             $uri[0] = substr($uris, 0, -1);
-        }
-
-        // Check for query
-        if (!empty($query[1])) {
-            $uri[0] = $query[0];
         }
 
         // Check if site exist
@@ -84,7 +79,7 @@ class Router
                         continue;
                     }
                     // Remove these directories
-                    if ($file !== "components" && $file !== "pages") {
+                    if ($file !== "components" && $file !== "views") {
                         $file  = $dir . $file;
                         if (is_dir($file)) {
                             $directory_path = $file . DIRECTORY_SEPARATOR;
@@ -106,18 +101,33 @@ class Router
     }
 
     /** ----------------------------
+     *? Get Root
+     * -----------------------------
+     * Return clean document root
+     *   as path.
+     * 
+     * @param boolean $returnName
+     * @return string uri or name
+     */
+    public function getRoot()
+    {
+        return urldecode(
+            parse_url($_SERVER['DOCUMENT_ROOT'], PHP_URL_PATH)
+        );
+    }
+
+    /** ----------------------------
      *? Format URI
      * -----------------------------
      * Return clean uri as path OR
      *  as page name.
      * 
-     * @param string $uri
      * @param boolean $returnName
      * @return string uri or name
      */
-    static function trimURI($uri, $returnName = false)
+    public function trimURI($returnName = false)
     {
-        $page = explode(".php", $uri);
+        $page = explode(".php", $this->request);
         $page = explode("/", $page[0]);
         $pageName = array_pop($page);
         $root = "";
@@ -129,8 +139,7 @@ class Router
             empty($pageName) && $pageName = "index";
             $root = $pageName;
         }
-
-        return $root = rtrim($root, "/");
+        return $root = trim($root, "/");
     }
 
     /** ----------------------------

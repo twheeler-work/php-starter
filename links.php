@@ -10,7 +10,7 @@ return [
         'js' => '/public/js/',
         'components' => $root . '/' . $site['VIEWS'] . '/components/',
         'common' => $root . '/' . $site['VIEWS'] . '/components/common/',
-        'pages' => $root . '/' . $site['VIEWS'] . '/pages/',
+        'pages' => $root . '/' . $site['VIEWS'] . $router->trimURI() . '/views/',
     ],
     'COMPONENTS' => [
         'header' => $root . '/' . $site['VIEWS'] . '/components/header.php',
