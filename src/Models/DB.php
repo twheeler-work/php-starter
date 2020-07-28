@@ -1,10 +1,10 @@
-<?php require_once(__DIR__ . '/../Config/index.php');
+<?php
 
 class DB
 {
 
     protected $db = DBDATA;
-    protected $env = ENV;
+    protected $local = LOCAL;
 
     function __construct()
     {
@@ -17,7 +17,7 @@ class DB
 
     public function start()
     {
-        if ($this->env === true) {
+        if ($this->local === true) {
 
             $dbSQL = array( //Staging DB 
                 'host' => 'localhost',
