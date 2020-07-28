@@ -65,7 +65,7 @@ class Router
         $pages = array();
         $directories = array();
         $last_letter  = $root[strlen($root) - 1];
-        $root  = ($last_letter == '\\' || $last_letter == '/') ? $root : $root . DIRECTORY_SEPARATOR;
+        $root  = ($last_letter == '\\' || $last_letter == '/') ? $root : $root . "/";
 
         $directories[]  = $root;
 
@@ -82,7 +82,7 @@ class Router
                     if ($file !== "components" && $file !== "views") {
                         $file  = $dir . $file;
                         if (is_dir($file)) {
-                            $directory_path = $file . DIRECTORY_SEPARATOR;
+                            $directory_path = $file . "/";
                             array_push($directories, $directory_path);
                         } elseif (is_file($file)) {
 

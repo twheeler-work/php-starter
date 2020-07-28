@@ -85,11 +85,11 @@ All view content is stored here.
 
   ### Basic Use:
 
-        views
+        templates
 
         - thankyou.php (accessible page)
 
-        - pages
+        - views
             - thankyou.page.php (page content)
 
 ## Vendor
