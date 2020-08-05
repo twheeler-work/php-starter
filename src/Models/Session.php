@@ -3,6 +3,8 @@
 class Session
 {
 
+    public $requireLogin = true;
+
     /** ---------------------------
      *? Start session
      * ----------------------------
@@ -84,7 +86,7 @@ class Session
         if (isset($_SESSION) && isset($_SESSION[$session])) {
             return $_SESSION[$session];
         } else {
-            Helper::redirect('login');
+            request::redirect('login');
         }
     }
 
@@ -99,8 +101,11 @@ class Session
         if (isset($_SESSION)) {
             session_unset();
             session_destroy();
-            Helper::redirect('login');
         }
+
+        $this->requireLogin
+            ? request::redirect('login')
+            : request::redirect('/');
     }
 
     /** ---------------------------
@@ -146,7 +151,7 @@ class Session
      */
     public function verify_token($token = false)
     {
-        !$token && $token = Helper::post('csrf-token');
+        !$token && $token = request::post('csrf-token');
         if (!empty($this->get('token')) && !empty($token)) {
             if (hash_equals($this->get('token'), $token)) {
                 return true;

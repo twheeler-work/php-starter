@@ -10,7 +10,6 @@ require_once(__DIR__ . '/../../vendor/autoload.php');
 // Project Variables
 ///////////////////////////////
 
-$reliant = false; // True if reliant.com site
 $siteURL =  $_SERVER['HTTP_HOST'];
 
 ///////////////////////////////
@@ -26,7 +25,7 @@ define('TIMEOUT', 1800); // 30 mins 1800
 // Set Stage Env
 define('STAGE', true);
 
-// Set stage env
+// Set local env
 if ($_SERVER["REMOTE_ADDR"] === '127.0.0.1') {
     define('LOCAL', true);
 } else {
@@ -71,4 +70,5 @@ $db = $conn->start();
 ///////////////////////////////
 
 $session = new Session;
+$session->requireLogin = false; // Comment out if login required
 $session->start();
