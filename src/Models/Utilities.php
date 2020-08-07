@@ -1,9 +1,7 @@
 <?php
 
-class Helper
+class Utilities
 {
-
-
 
     /** ----------------------------
      *? Get file extension

@@ -41,6 +41,25 @@ class Request
         }
     }
 
+    /** ----------------------------
+     *? Get All POST query
+     * -----------------------------
+     * Get & clean all post data
+     * 
+     * @return array $query
+     */
+    public static function postAll()
+    {
+        if (isset($_POST)) {
+            foreach ($_POST as $key => $value) {
+                $form[htmlspecialchars($key)] = htmlspecialchars($value);
+            }
+            return $form;
+        } else {
+            return '';
+        }
+    }
+
     public static function getHost()
     {
         if (isset($_SERVER)) {
