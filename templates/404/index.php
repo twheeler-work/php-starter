@@ -1,7 +1,9 @@
 <?php
+
+use Http\Request;
 // Set return / back link
-isset($_SERVER['HTTP_REFERER'])
-    ? $nav = [$_SERVER['HTTP_REFERER'], "Go back"]
+!empty(Request::getReferer())
+    ? $nav = [Request::getReferer(), "Go back"]
     : $nav = ["/", "Return home"];
 ?>
 
@@ -10,13 +12,13 @@ isset($_SERVER['HTTP_REFERER'])
 
 <head>
     <!-- Header -->
-    <?php include_once($links['COMPONENTS']['header'])  ?>
+    <?php include($link->getComponent('header'))  ?>
     <title>404</title>
 </head>
 
 <body>
     <!-- Nav -->
-    <?php include_once($links['COMPONENTS']['nav'])  ?>
+    <?php include($link->getComponent('nav'))  ?>
     <div class="container-fluid error-404">
         <div class="container">
             <h1 class="display-1">404</h1>
