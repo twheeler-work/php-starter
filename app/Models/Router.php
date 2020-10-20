@@ -4,14 +4,13 @@ class Router
 {
   private $request;
   private $isRequest;
-  private $pages;
 
   public function __construct()
   {
     $this->request = Request::getURI();
-    $this->isRequest = (new Request())->handleRequest();
-    $this->pages = $this->getPages();
-    $this->isRequest && $this->backendRoutes();
+    // POST calls
+    $isRequest = (new Request())->handleRequest();
+    $isRequest && $this->backendRoutes();
   }
 
   /** ----------------------------
@@ -43,8 +42,10 @@ class Router
       $uri[0] = substr($uris, 0, -1);
     }
 
+    // print_r($this->pages);
+
     // Check if site exist
-    if (in_array(strtolower($uri[0]), $this->pages)) {
+    if (in_array(strtolower($uri[0]), $this->getPages())) {
       return "/" . VIEWS . "$uri[0]/index.php";
     } else {
       return '/' . VIEWS . '404/index.php';
@@ -65,10 +66,8 @@ class Router
     $uri = explode(".php", $uri);
     $uri = explode("/", $uri[0]);
 
-    print_r($this->pages);
-
     // Check if file exist
-    if (in_array(strtolower($uri[1]), $this->pages)) {
+    if (in_array(strtolower($uri[1]), $this->getPages())) {
       Request::verify_header();
     } else {
       die('Not allowed!');
