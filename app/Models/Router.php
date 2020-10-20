@@ -67,7 +67,7 @@ class Router
     $uri = explode("/", $uri[0]);
 
     // Check if file exist
-    if (in_array(strtolower($uri[1]), $this->getPages())) {
+    if (in_array(strtolower($uri[1]), $this->getPages(true))) {
       Request::verify_header();
     } else {
       die('Not allowed!');
@@ -84,11 +84,11 @@ class Router
    * @param string path to page directory
    * @return array pages
    */
-  private function getPages()
+  private function getPages($returnBackend = false)
   {
     try {
       // Build for backend/frontend accessible files
-      $this->isRequest
+      $returnBackend
         ? ($root = Request::getRoot() . "/" . SCRIPTS)
         : ($root = Request::getRoot() . "/" . VIEWS);
 
@@ -105,13 +105,13 @@ class Router
         if ($handle = opendir($dir)) {
           while (false !== ($file = readdir($handle))) {
             // Avoid these directories
-            if ($file == '.' || $file == '..') {
+            if ($file == '.' || $file == '..' || $file == '.DS_Store') {
               continue;
             }
             // Remove component directories
             if ($file !== COMPONENT_DIR) {
               $file = $dir . $file;
-              if (!$this->isRequest && is_dir($file)) {
+              if (!$returnBackend && is_dir($file)) {
                 $directory_path = $file . '/';
                 array_push($directories, $directory_path);
               } elseif (is_file($file)) {
@@ -119,16 +119,22 @@ class Router
                 $file = str_replace($root, "", $file);
                 // Remove extension
                 $page = explode("/", $file);
-                array_pop($page);
-                $page = implode('/', $page);
-                array_push($pages, $page);
+                // Format for return
+                if ($returnBackend) {
+                  $page = explode(".php", $file);
+                  array_push($pages, $page[0]);
+                } else {
+                  array_pop($page);
+                  $page = implode('/', $page);
+                  array_push($pages, $page);
+                }
               }
             }
           }
           closedir($handle);
         }
       }
-      return array_unique($pages);
+      return $returnBackend ? $pages : array_unique($pages);
     } catch (Exception $e) {
       print_r($e);
     }
