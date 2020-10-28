@@ -3,24 +3,26 @@
 class Session
 {
   /** ---------------------------------
-   ** Initialize session with login
+   ** Initialize session
    *  ---------------------------------
-   * @param bool login default true
+   * Create initial session with
+   *    optional timeout.
+   *
+   * @param bool timeout default null
    */
-  function __construct()
+  function __construct($timeout = null)
   {
     $this->start();
+    $timeout && self::timeout();
   }
 
   /** ---------------------------
    ** Start session
    * ----------------------------
-   * Start new session with
-   *  timeout counter.
    */
   private function start()
   {
-    session_start();
+    !isset($_SESSION) && session_start();
   }
 
   /** ---------------------------
